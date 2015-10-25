@@ -595,7 +595,7 @@ int aa_umount(struct aa_label *label, struct vfsmount *mnt, int flags)
 	const char *name, *info = NULL;
 	int error;
 
-	struct path path = { mnt, mnt->mnt_root };
+	struct path path = { .mnt = mnt, .dentry = mnt->mnt_root };
 	get_buffers(buffer);
 	error = aa_path_name(&path, path_flags(labels_profile(label), &path),
 			     buffer, &name, &info,

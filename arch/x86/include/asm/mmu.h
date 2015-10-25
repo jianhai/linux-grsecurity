@@ -17,7 +17,19 @@ typedef struct {
 #endif
 
 	struct mutex lock;
-	void __user *vdso;
+	unsigned long vdso;
+
+#ifdef CONFIG_X86_32
+#if defined(CONFIG_PAX_PAGEEXEC) || defined(CONFIG_PAX_SEGMEXEC)
+	unsigned long user_cs_base;
+	unsigned long user_cs_limit;
+
+#if defined(CONFIG_PAX_PAGEEXEC) && defined(CONFIG_SMP)
+	cpumask_t cpu_user_cs_mask;
+#endif
+
+#endif
+#endif
 } mm_context_t;
 
 #ifdef CONFIG_SMP

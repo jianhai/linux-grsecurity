@@ -125,7 +125,7 @@ MODULE_PARM_DESC(log_ecn_error, "Log packets received with corrupted ECN");
 static int ipip_net_id __read_mostly;
 
 static int ipip_tunnel_init(struct net_device *dev);
-static struct rtnl_link_ops ipip_link_ops __read_mostly;
+static struct rtnl_link_ops ipip_link_ops;
 
 static int ipip_err(struct sk_buff *skb, u32 info)
 {
@@ -631,7 +631,7 @@ static const struct nla_policy ipip_policy[IFLA_IPTUN_MAX + 1] = {
 	[IFLA_IPTUN_FAN_MAP]		= { .type = NLA_NESTED },
 };
 
-static struct rtnl_link_ops ipip_link_ops __read_mostly = {
+static struct rtnl_link_ops ipip_link_ops = {
 	.kind		= "ipip",
 	.maxtype	= IFLA_IPTUN_MAX,
 	.policy		= ipip_policy,
